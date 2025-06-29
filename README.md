@@ -10,22 +10,17 @@ This repository contains a basic setup for a Next.js frontend and a NestJS backe
 
 ### Install dependencies
 
-Run `npm install` in both `frontend` and `backend` directories.
+Run `npm install` in the project root. NPM workspaces will install
+the dependencies for both the backend and frontend.
 
 ### Start the development servers
 
-- **Backend**
-  ```bash
-  cd backend
-  npm run start:dev
-  ```
-- **Frontend**
-  ```bash
-  cd frontend
-  npm run dev
-  ```
+To run both applications in parallel execute:
 
-Both applications are independent but can be run in parallel.
+```bash
+npm run dev
+```
 
 ## Environment variables
-Create `.env` files in `backend` and `frontend` with the variables required by Prisma, Clerk, and other services.
+Copy `.env.example` to `.env` in the project root and provide the required
+variables for Clerk and any other services.

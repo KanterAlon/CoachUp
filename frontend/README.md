@@ -30,9 +30,9 @@ To run the example locally you need to:
 
 1. Sign up at [Clerk.dev](https://www.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter).
 2. Go to [Clerk's dashboard](https://dashboard.clerk.dev/?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter) and create an application.
-3. Set the required Clerk environment variables from your Clerk project as shown at [the example env file](./.env.local.example).
-4. `yarn` to install the required dependencies.
-5. `yarn dev` to launch the development server.
+3. Copy the repository's `.env.example` file to `.env` and set the required Clerk variables.
+4. From the project root run `npm install` to install all dependencies.
+5. Run `npm run dev` from the project root to launch both the frontend and backend.
 
 ## Learn More
 
