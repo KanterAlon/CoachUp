@@ -1,125 +1,99 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { APIRequest } from "./api-request";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  UserGroupIcon,
+  ClipboardDocumentListIcon,
+  CalendarDaysIcon,
+  ChartBarIcon,
+} from "@heroicons/react/24/outline";
 
-const ClerkFeatures = () => (
-  <Link href="/user" className={styles.cardContent}>
-    <img src="/icons/layout.svg" />
-    <div>
-      <h3>Explore features provided by Clerk</h3>
-      <p>
-        Interact with the user button, user profile, and more to preview what
-        your users will see
-      </p>
+function Feature({
+  icon: Icon,
+  title,
+  description,
+}: {
+  icon: typeof UserGroupIcon;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="flex flex-col items-center text-center px-4">
+      <Icon className="h-8 w-8 text-blue-600" />
+      <h3 className="mt-3 font-semibold">{title}</h3>
+      <p className="mt-2 text-sm text-gray-600">{description}</p>
     </div>
-    <div className={styles.arrow}>
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-const SignupLink = () => (
-  <Link href="/sign-up" className={styles.cardContent}>
-    <img src="/icons/user-plus.svg" />
-    <div>
-      <h3>Sign up for an account</h3>
-      <p>
-        Sign up and sign in to explore all the features provided by Clerk
-        out-of-the-box
-      </p>
-    </div>
-    <div className={styles.arrow}>
-      <img src="/icons/arrow-right.svg" />
-    </div>
-  </Link>
-);
-
-// Main component using <SignedIn> & <SignedOut>.
-//
-// The SignedIn and SignedOut components are used to control rendering depending
-// on whether or not a visitor is signed in.
-//
-// https://docs.clerk.dev/frontend/react/signedin-and-signedout
-const Main = () => (
-  <main className={styles.main}>
-    <h1 className={styles.title}>Welcome to your new app</h1>
-    <p className={styles.description}>Sign up for an account to get started</p>
-
-    <div className={styles.cards}>
-      <div className={styles.card}>
-        <SignedIn>
-          <ClerkFeatures />
-        </SignedIn>
-        <SignedOut>
-          <SignupLink />
-        </SignedOut>
-      </div>
-
-      <div className={styles.card}>
-        <Link
-          href="https://dashboard.clerk.dev"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.cardContent}
-        >
-          <img src="/icons/settings.svg" />
-          <div>
-            <h3>Configure settings for your app</h3>
-            <p>
-              Visit Clerk to manage instances and configure settings for user
-              management, theme, and more
-            </p>
-          </div>
-          <div className={styles.arrow}>
-            <img src="/icons/arrow-right.svg" />
-          </div>
-        </Link>
-      </div>
-    </div>
-
-    <APIRequest />
-
-    <div className={styles.links}>
-      <Link
-        href="https://docs.clerk.dev"
-        target="_blank"
-        rel="noreferrer"
-        className={styles.link}
-      >
-        <span className={styles.linkText}>Read Clerk documentation</span>
-      </Link>
-      <Link
-        href="https://nextjs.org/docs"
-        target="_blank"
-        rel="noreferrer"
-        className={styles.link}
-      >
-        <span className={styles.linkText}>Read Next.js documentation</span>
-      </Link>
-    </div>
-  </main>
-);
-
-// Footer component
-const Footer = () => (
-  <footer className={styles.footer}>
-    Powered by{" "}
-    <a href="https://clerk.dev" target="_blank" rel="noopener noreferrer">
-      <img src="/clerk.svg" alt="Clerk.dev" className={styles.logo} />
-    </a>
-    +
-    <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
-      <img src="/nextjs.svg" alt="Next.js" className={styles.logo} />
-    </a>
-  </footer>
-);
+  );
+}
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Main />
-      <Footer />
+    <div className="min-h-screen flex flex-col">
+      <header className="flex items-center justify-between p-4 md:p-6">
+        <Link href="/" className="text-xl font-bold text-blue-600">
+          CoachUp
+        </Link>
+        <div className="flex items-center space-x-4">
+          <SignedOut>
+            <Link href="/sign-in" className="px-4 py-2 rounded bg-blue-600 text-white">
+              Sign in
+            </Link>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </div>
+      </header>
+
+      <main className="flex-grow">
+        <section className="flex flex-col items-center text-center py-20 px-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+            Manage your training business
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl">
+            CoachUp helps you organize clients, routines and schedules so you can
+            focus on coaching.
+          </p>
+          <div className="flex space-x-4">
+            <Link href="/sign-up" className="px-6 py-3 rounded-lg bg-blue-600 text-white">
+              Get started
+            </Link>
+            <Link
+              href="/sign-in"
+              className="px-6 py-3 rounded-lg border border-blue-600 text-blue-600"
+            >
+              Sign in
+            </Link>
+          </div>
+        </section>
+        <section className="bg-gray-50 py-16">
+          <div className="max-w-5xl mx-auto grid gap-8 md:grid-cols-4">
+            <Feature
+              icon={UserGroupIcon}
+              title="Client Management"
+              description="Track progress and personal details for all your clients."
+            />
+            <Feature
+              icon={ClipboardDocumentListIcon}
+              title="Workout Plans"
+              description="Create and assign personalized routines."
+            />
+            <Feature
+              icon={CalendarDaysIcon}
+              title="Scheduling"
+              description="Organize classes and sessions with ease."
+            />
+            <Feature
+              icon={ChartBarIcon}
+              title="Insights"
+              description="Analyze performance and keep improving."
+            />
+          </div>
+        </section>
+      </main>
+
+      <footer className="text-center py-6 text-sm text-gray-500">
+        &copy; {new Date().getFullYear()} CoachUp. All rights reserved.
+      </footer>
     </div>
   );
 }
