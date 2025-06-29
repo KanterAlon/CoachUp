@@ -1,13 +1,14 @@
 import "../styles/globals.css";
 import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Inter } from "next/font/google";
+// Using next/font/google would attempt to download fonts during build which
+// fails in environments without internet access. The layout can work without
+// a custom font, so it is omitted here.
 import Image from "next/image";
 import Script from "next/script";
 import styles from "../styles/Header.module.css";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Clerk with App Router",
@@ -41,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body className={inter.className}>
+        <body>
           <Header />
           <main>{children}</main>
         </body>
