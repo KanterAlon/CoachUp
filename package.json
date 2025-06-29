@@ -1,0 +1,10 @@
+{
+  "name": "coachup-root",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run start:dev\" \"npm --prefix frontend run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
