@@ -8,4 +8,6 @@ async function bootstrap() {
   console.log(`Server running on port ${port}`);
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Bootstrap failed', err);
+});
