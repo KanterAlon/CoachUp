@@ -62,18 +62,19 @@ export default function Dashboard() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <ul className="space-y-2 mb-6">
-            {students.map((s) => (
-              <li key={s.id} className="p-4 border rounded">
-                <h3 className="font-semibold">
-                  <a href={`/dashboard/${s.id}`}>{s.full_name}</a>
-                </h3>
-                <p className="text-sm text-gray-600">{s.email}</p>
-              </li>
-            ))}
-            {students.length === 0 && <p>No students yet.</p>}
-          </ul>
-          <form onSubmit={handleSubmit} className="space-y-2">
+          <>
+            <ul className="space-y-2 mb-6">
+              {students.map((s) => (
+                <li key={s.id} className="p-4 border rounded">
+                  <h3 className="font-semibold">
+                    <a href={`/dashboard/${s.id}`}>{s.full_name}</a>
+                  </h3>
+                  <p className="text-sm text-gray-600">{s.email}</p>
+                </li>
+              ))}
+              {students.length === 0 && <p>No students yet.</p>}
+            </ul>
+            <form onSubmit={handleSubmit} className="space-y-2">
             <input
               className="w-full border p-2"
               name="full_name"
@@ -101,7 +102,8 @@ export default function Dashboard() {
             <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
               Add Student
             </button>
-          </form>
+            </form>
+          </>
         )}
       </SignedIn>
     </div>
