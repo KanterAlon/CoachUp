@@ -39,6 +39,15 @@ export default function Home() {
             </Link>
           </SignedOut>
           <SignedIn>
+            <Link href="/dashboard" className="px-4 py-2 rounded text-blue-600 hover:underline">
+              Dashboard
+            </Link>
+            <Link href="/exercises" className="px-4 py-2 rounded text-blue-600 hover:underline">
+              Exercises
+            </Link>
+            <Link href="/community" className="px-4 py-2 rounded text-blue-600 hover:underline">
+              Community
+            </Link>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
         </div>
