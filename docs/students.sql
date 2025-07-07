@@ -5,6 +5,10 @@ create table if not exists students (
     full_name text not null,
     email text not null,
     type text,
+    age integer,
+    description text,
+    avatar_url text,
+    schedule text,
     inserted_at timestamp with time zone default timezone('utc', now()),
     updated_at timestamp with time zone default timezone('utc', now())
 );

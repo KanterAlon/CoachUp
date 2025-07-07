@@ -4,7 +4,7 @@ import styles from "../../../styles/Auth.module.css";
 export default function Page() {
   return (
     <div className={styles.auth}>
-      <SignUp />
+      <SignUp afterSignUpUrl="/profile" afterSignInUrl="/dashboard" />
     </div>
   );
 }
