@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedOut } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import {
   UserGroupIcon,
   ClipboardDocumentListIcon,
@@ -25,7 +27,11 @@ function Feature({
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+  if (userId) {
+    redirect('/dashboard');
+  }
   return (
     <div className="min-h-screen flex flex-col">
       <header className="flex items-center justify-between p-4 md:p-6">
@@ -38,18 +44,6 @@ export default function Home() {
               Sign in
             </Link>
           </SignedOut>
-          <SignedIn>
-            <Link href="/dashboard" className="px-4 py-2 rounded text-blue-600 hover:underline">
-              Dashboard
-            </Link>
-            <Link href="/exercises" className="px-4 py-2 rounded text-blue-600 hover:underline">
-              Exercises
-            </Link>
-            <Link href="/community" className="px-4 py-2 rounded text-blue-600 hover:underline">
-              Community
-            </Link>
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
         </div>
       </header>
 

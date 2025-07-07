@@ -9,12 +9,24 @@ interface Student {
   full_name: string
   email: string
   type: string | null
+  age: number | null
+  description: string | null
+  avatar_url: string | null
+  schedule: string | null
 }
 
 export default function Dashboard() {
   const [students, setStudents] = useState<Student[]>([])
   const [loading, setLoading] = useState(true)
-  const [form, setForm] = useState({ full_name: '', email: '', type: '' })
+  const [form, setForm] = useState({
+    full_name: '',
+    email: '',
+    type: '',
+    age: '',
+    description: '',
+    avatar_url: '',
+    schedule: '',
+  })
   const router = useRouter()
 
   useEffect(() => {
@@ -31,7 +43,9 @@ export default function Dashboard() {
     load()
   }, [router])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -45,7 +59,15 @@ export default function Dashboard() {
     if (res.ok) {
       const data = await res.json()
       setStudents([...students, data.student])
-      setForm({ full_name: '', email: '', type: '' })
+      setForm({
+        full_name: '',
+        email: '',
+        type: '',
+        age: '',
+        description: '',
+        avatar_url: '',
+        schedule: '',
+      })
     }
   }
 
@@ -63,13 +85,26 @@ export default function Dashboard() {
           <p>Loading...</p>
         ) : (
           <>
-            <ul className="space-y-2 mb-6">
+            <ul className="grid gap-4 mb-6 sm:grid-cols-2">
               {students.map((s) => (
-                <li key={s.id} className="p-4 border rounded">
-                  <h3 className="font-semibold">
+                <li
+                  key={s.id}
+                  className="p-4 border rounded flex flex-col items-center text-center"
+                >
+                  {s.avatar_url && (
+                    <img
+                      src={s.avatar_url}
+                      alt={s.full_name}
+                      className="w-24 h-24 rounded-full object-cover mb-2"
+                    />
+                  )}
+                  <h3 className="font-semibold text-lg">
                     <a href={`/dashboard/${s.id}`}>{s.full_name}</a>
                   </h3>
                   <p className="text-sm text-gray-600">{s.email}</p>
+                  {s.description && (
+                    <p className="text-sm mt-1 text-gray-500">{s.description}</p>
+                  )}
                 </li>
               ))}
               {students.length === 0 && <p>No students yet.</p>}
@@ -97,6 +132,35 @@ export default function Dashboard() {
               name="type"
               placeholder="Type"
               value={form.type}
+              onChange={handleChange}
+            />
+            <input
+              className="w-full border p-2"
+              name="age"
+              type="number"
+              placeholder="Age"
+              value={form.age}
+              onChange={handleChange}
+            />
+            <textarea
+              className="w-full border p-2"
+              name="description"
+              placeholder="Description"
+              value={form.description}
+              onChange={handleChange}
+            />
+            <input
+              className="w-full border p-2"
+              name="avatar_url"
+              placeholder="Photo URL"
+              value={form.avatar_url}
+              onChange={handleChange}
+            />
+            <input
+              className="w-full border p-2"
+              name="schedule"
+              placeholder="Schedule (e.g. Mon 10:00, Wed 14:00)"
+              value={form.schedule}
               onChange={handleChange}
             />
             <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">

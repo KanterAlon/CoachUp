@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const body = await request.json()
-  const { full_name, email, type } = body
+  const { full_name, email, type, age, description, avatar_url, schedule } = body
   const trainerRes = await supabaseAdmin
     .from('personal_trainers')
     .select('id')
@@ -50,7 +50,16 @@ export async function POST(request: Request) {
 
   const { data, error } = await supabaseAdmin
     .from('students')
-    .insert({ trainer_id: trainerRes.data.id, full_name, email, type })
+    .insert({
+      trainer_id: trainerRes.data.id,
+      full_name,
+      email,
+      type,
+      age,
+      description,
+      avatar_url,
+      schedule,
+    })
     .select()
     .single()
 
