@@ -1,12 +1,12 @@
 import { auth } from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(
-  request: Request,
-  { params }: { params: { studentId: string } }
+  request: NextRequest,
+  { params }: any
 ) {
   const { userId } = await auth()
   if (!userId) {
@@ -44,8 +44,8 @@ export async function GET(
 }
 
 export async function POST(
-  request: Request,
-  { params }: { params: { studentId: string } }
+  request: NextRequest,
+  { params }: any
 ) {
   const { userId } = await auth()
   if (!userId) {
